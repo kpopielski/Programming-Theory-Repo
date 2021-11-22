@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public string PlayerName;
     public string weight;
     public string age;
+    public string height;
     public int type;
 
     private void Awake()
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
         
         public string weight;
         public string age;
+        public string height;
         public int type;
     }
     public void SaveName()
@@ -38,6 +40,7 @@ public class GameManager : MonoBehaviour
         
         data.age = age;
         data.weight = weight;
+        data.height = height;
         data.type = type;
 
         string json = JsonUtility.ToJson(data);

@@ -14,8 +14,10 @@ public class MenuManager : MonoBehaviour
     public string weight;
     public InputField wiekInputName;
     public string age;
-    public Button[] buttons;
-    public Button Excit;
+    public InputField wzrostInputName;
+    public string height;
+   
+  
     public int type;
     public int test1;
 
@@ -37,6 +39,8 @@ public class MenuManager : MonoBehaviour
         GameManager.Instance.weight = weight;
         age = wiekInputName.text;
         GameManager.Instance.age = age;
+        height = wzrostInputName.text;
+        GameManager.Instance.height = height;
         GameManager.Instance.type = type;
     }
     public void StartNew()

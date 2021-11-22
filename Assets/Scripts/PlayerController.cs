@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public bool hasPowerup;
     public int powerUpDuration;
     public GameObject pozycja;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -35,10 +36,14 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy")|| collision.gameObject.CompareTag("Friend"))
+        if (collision.gameObject.CompareTag("Enemy") && hasPowerup )
         {
             Destroy(collision.gameObject);
 
+        }
+        else if (collision.gameObject.CompareTag("Friend"))
+        {
+            Destroy(collision.gameObject);
         }
         
     }
