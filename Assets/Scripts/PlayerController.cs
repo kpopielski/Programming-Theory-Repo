@@ -12,15 +12,22 @@ public class PlayerController : MonoBehaviour
     public bool hasPowerup;
     public int powerUpDuration;
     public GameObject pozycja;
-    
+    public int gamePoints;
+    GameObject mainManagerObj;
+    MainManager mainManager;
+
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         focalPoint = GameObject.Find("Focal Point");
+        mainManagerObj = GameObject.Find("MainManager");
+        mainManager = mainManagerObj.GetComponent<MainManager>();
+        
     
         //  playerRb.centerOfMass = centerOfMass.transform.position;
         powerupIndicator.SetActive(false);
+        hasPowerup = false;
     }
 
     // Update is called once per frame
@@ -33,17 +40,24 @@ public class PlayerController : MonoBehaviour
         playerRb.AddForce(focalPoint.transform.forward * verticalInput* speed *Time.deltaTime);
         playerRb.AddTorque(transform.up * horizontalInput * 100);
         powerupIndicator.transform.position = pozycja.transform.position;
+       
     }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy") && hasPowerup )
         {
             Destroy(collision.gameObject);
-
+            
+        }
+        else if (collision.gameObject.CompareTag("Enemy"))
+        {
+            mainManager.points += 200;
+            Destroy(collision.gameObject);
         }
         else if (collision.gameObject.CompareTag("Friend"))
         {
             Destroy(collision.gameObject);
+            mainManager.points += 100;
         }
         
     }
@@ -63,4 +77,5 @@ public class PlayerController : MonoBehaviour
         hasPowerup = false;
         powerupIndicator.SetActive(false);
     }
+   
 }

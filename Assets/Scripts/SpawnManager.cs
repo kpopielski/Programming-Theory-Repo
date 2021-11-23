@@ -23,18 +23,22 @@ public class SpawnManager : MonoBehaviour
     void Update()
     {
         friendCount = GameObject.FindGameObjectsWithTag("Friend").Length;
-
-        if (friendCount == 0)
+        if (waveCount < 5)
         {
-
-            SpawnWave(waveCount);
-
+            if (friendCount == 0)
+            {
+                SpawnWave(waveCount);
+            }
+        }
+        else
+        {
+            isGameActive = false;
         }
 
     }
     Vector3 RandomSpawnPos()
     {
-        return new Vector3(Random.Range(-spawnRange, spawnRange), 0.5f ,Random.Range(-spawnRange, spawnRange));
+        return new Vector3(Random.Range(-spawnRange, spawnRange), 1f ,Random.Range(-spawnRange, spawnRange));
     }
     IEnumerator SpawnEnemies()
     {
@@ -72,10 +76,11 @@ public class SpawnManager : MonoBehaviour
             int indexf = Random.Range(0, friendsPrefab.Count);
             Instantiate(friendsPrefab[indexf], RandomSpawnPos(), friendsPrefab[indexf].transform.rotation);
         }
-
-        int index = Random.Range(0, enemiesPrefab.Count);
-        Instantiate(enemiesPrefab[index], RandomSpawnPos(), enemiesPrefab[index].transform.rotation);
-
+        for (int i = 0; i < friendsToSpawn-1; i++)
+        {
+            int index = Random.Range(0, enemiesPrefab.Count);
+            Instantiate(enemiesPrefab[index], RandomSpawnPos(), enemiesPrefab[index].transform.rotation);
+        }
         waveCount++;
 
      }
